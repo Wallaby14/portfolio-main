@@ -1,0 +1,160 @@
+/* import for new fonts */
+@import url("https://fonts.googleapis.com/css2?family=Akaya+Telivigala&family=Shippori+Mincho:wght@500&display=swap");
+
+/* 
+  Author: Wyatt Allaby
+  Date:   6-11-2021
+*/
+
+body {
+  /* Sets color of body and fits everything centered */
+  background-color: rgb(115, 184, 248); 
+  width: 80vw;
+  margin: auto;
+  font-family: "Akaya Telivigala", cursive;
+}
+
+h1 {
+  font-family: "Shippori Mincho", serif;
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+p {
+  font-size: 20px;
+}
+
+.buttons {
+  text-decoration: none;
+  padding: 1em;
+  margin: 1em;
+
+  color: black;
+
+  border: 2px solid red;
+  border-radius: 33px;
+  width: auto;
+  cursor: pointer;
+}
+
+.buttons:hover {
+  background-color: #495e88;
+}
+
+ul {
+  list-style-type: box;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+ul li {
+  grid-column: 1;
+  margin-left: 150px;
+}
+
+ul li:nth-child(2n) {
+  grid-column: 2;
+}
+
+header {
+  text-align: center;
+}
+
+hr {
+  height: 0.2em;
+  background-color: #000000;
+  width: 75vw;
+}
+
+footer {
+  text-align: center;
+  font-style: italic;
+  margin-bottom: 1vh;
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.horizontal {
+  display: flex;
+  flex-direction: row;
+}
+
+article p {
+  width: 55%;
+}
+
+aside {
+  padding-left: 40px;
+}
+
+.cyberbranch {
+  padding-right: 40px;
+}
+
+section {
+  width: 100%;
+  min-height: 30vh;
+
+  padding-top: 2em; /* gives a little space between the top of the section and images */
+  padding-bottom: 2em;
+  color: black;
+  margin-top: 2vh;
+  border-radius: 50px;
+}
+
+section .section {
+  flex-direction: row;
+}
+
+section:nth-of-type(2n) .section {
+  flex-direction: row-reverse;
+}
+
+img {
+  border-radius: 20px;
+}
+
+/* this is where navbar gets introduced */
+.topnav {
+  background-color: #f1f1f1;
+  display: flex;
+  justify-content: space-around;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 1em;
+  text-decoration: none;
+  font-size: 17px;
+  border-bottom: 0.3em solid transparent;
+}
+
+.topnav a:hover, .topnav a:active, .topnav .active-link {
+  border-bottom: 0.3em solid red;
+}
+
+.embedded {
+  width: 100%;
+  height: 100%;
+}
+
+
+/* sets border around any code in the website */
+.code {
+  /* color: white; */
+  background-color: #f1f1f1;
+  width: fit-content;
+  margin: 0;
+  padding: 1em;
+  border-radius: 10%;
+  text-align: left;
+}

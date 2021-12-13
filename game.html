@@ -1,0 +1,185 @@
+<html>
+
+<!-- 
+    Author: Wyatt Allaby
+    Date:   6-11-2021
+ -->
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="game.css">
+
+    <div class="topnav">
+        <a href="home.html">Home</a>
+            <a href="achievements.html">Achievements/Skills</a>
+            <a href="code.html">Code/Languages</a>
+            <a href="future.html">Future</a>
+            <a href="resume.html">Resume</a>
+            <a href="game.html"  class="active-link">Game</a>
+    </div>
+</head>
+
+<body>
+    <br />
+    <button onclick="startGame()">Start Game</button>
+    <button onclick="Refresh()">Respawn</button>
+
+    <p class="intro">Double Click Start Game To Start</p>
+    <p class="intro">Use Space Bar to Jump</p>
+    <p class="intro">How long can you stay alive?</p>
+
+
+    <script>
+        var myGamePiece;
+        var myObstacles = [];
+        var myScore;
+
+        var gameStarted = false;
+
+        window.addEventListener('keydown', () => accelerate(-0.2))
+        window.addEventListener('keyup', () => accelerate(0.05))
+
+        function startGame() {
+            myGamePiece = new component(30, 30, "Navy", 10, 120);
+            myGamePiece.gravity = 0.03;
+            myScore = new component("30px", "Consolas", "Black", 280, 40, "text");
+            myGameArea.clear();
+            myGameArea.start();
+            gameStarted = true;
+        }
+
+        var myGameArea = {
+            canvas: document.createElement('canvas'),
+            start: function () {
+                this.canvas.width = 700;
+                this.canvas.height = 350;
+                this.context = this.canvas.getContext("2d");
+                document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+                this.frameNo = 0;
+                this.interval = setInterval(updateGameArea, 15); //Space between the obsticles
+            },
+            clear: function () {
+                var context = this.canvas.getContext("2d")
+                context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            }
+        }
+
+        function component(width, height, color, x, y, type) {
+            this.type = type;
+            this.score = 0;
+            this.width = width;
+            this.height = height;
+            this.speedX = 0;
+            this.speedY = 0;
+            this.x = x;
+            this.y = y;
+            this.gravity = 0;
+            this.gravitySpeed = 0;
+            this.update = function () {
+                var ctx = myGameArea.context;
+                if (this.type == "text") {
+                    ctx.font = this.width + " " + this.height;
+                    ctx.fillStyle = color;
+                    ctx.fillText(this.text, this.x, this.y);
+                } else {
+                    ctx.fillStyle = color;
+                    ctx.fillRect(this.x, this.y, this.width, this.height);
+                }
+            }
+            this.newPos = function () {
+                this.gravitySpeed += this.gravity;
+                this.x += this.speedX;
+                this.y += this.speedY + this.gravitySpeed;
+                this.hitBottom();
+            }
+            this.hitBottom = function () {
+                var rockbottom = myGameArea.canvas.height - this.height;
+                if (this.y > rockbottom) {
+                    this.y = rockbottom;
+                    this.gravitySpeed = 0;
+                }
+            }
+            this.crashWith = function (otherobj) {
+                var myleft = this.x;
+                var myright = this.x + (this.width);
+                var mytop = this.y;
+                var mybottom = this.y + (this.height);
+                var otherleft = otherobj.x;
+                var otherright = otherobj.x + (otherobj.width);
+                var othertop = otherobj.y;
+                var otherbottom = otherobj.y + (otherobj.height);
+                var crash = true;
+                if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
+                    crash = false;
+                }
+                return crash;
+            }
+        }
+
+        function updateGameArea() {
+            var x, height, gap, minHeight, maxHeight, minGap, maxGap;
+            for (var i = 0; i < myObstacles.length; i += 1) {
+                if (myGamePiece.crashWith(myObstacles[i])) {
+                    clearInterval(myGameArea.interval);
+                    return;
+
+                }
+            }
+
+
+            if (isOutOfRange()) {
+                clearInterval(myGameArea.interval);
+                return
+            }
+
+
+
+            myGameArea.clear();
+            myGameArea.frameNo += 1;
+
+            if (myGameArea.frameNo == 1 || everyinterval(150)) {
+                x = myGameArea.canvas.width;
+                minHeight = 20; //20
+                maxHeight = 200;
+                height = Math.floor(Math.random() * (maxHeight - minHeight + 1) + minHeight);
+                minGap = 60;
+                maxGap = 80;
+                gap = Math.floor(Math.random() * (maxGap - minGap + 1) + minGap);
+                myObstacles.push(new component(20, height, "#f1f1f1", x, 0));
+                myObstacles.push(new component(20, x - height - gap, "#f1f1f1", x, height + gap));
+            }
+
+            for (i = 0; i < myObstacles.length; i += 1) {
+                myObstacles[i].x += -2;
+                myObstacles[i].update();
+            }
+
+            myScore.text = "SCORE: " + myGameArea.frameNo;
+            myScore.update();
+            myGamePiece.newPos();
+            myGamePiece.update();
+
+        }
+
+        function isOutOfRange() {
+            return myGamePiece.y < 0 || myGamePiece.y >= 320;
+        }
+
+        function everyinterval(n) {
+            return (myGameArea.frameNo / n) % 1 == 0;
+        }
+
+        function accelerate(n) {
+            myGamePiece.gravity = n;
+        }
+
+        function Refresh() {
+            location.reload();
+        }
+
+        console.log('Script initialized');
+    </script>
+</body>
+
+</html>

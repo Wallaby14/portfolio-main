@@ -1,0 +1,87 @@
+<html>
+
+<!-- 
+    Author: Wyatt Allaby
+    Date:   6-11-2021
+ -->
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wyatt Documentation</title>
+    <!-- Allows CSS to Work -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Navbar Code -->
+    <div class="topnav">
+        <a href="home.html">Home</a>
+            <a href="achievements.html">Achievements/Skills</a>
+            <a href="code.html"  class="active-link">Code/Languages</a>
+            <a href="future.html">Future</a>
+            <a href="resume.html">Resume</a>
+            <a href="game.html">Game</a>
+    </div>
+</head>
+
+<body>
+    <header>
+        <h1>All Code</h1>
+    </header>
+    <section>
+        <article>
+            <h2>Comfortable Languages</h2>
+            <br>
+            <div class="horizontal">
+                <a href="code.html" class="buttons">
+                    C/C++
+                </a>
+                <a href="code3.html" class="buttons">
+                    Java
+                </a>
+                <a href="code2.html" class="buttons">
+                    Javascript
+                </a>
+            </div>
+        </article>
+    </section>
+
+    <hr>
+
+    <section>
+        <h1>C/C++</h1>
+        <article>
+            <p>Here is some code that I wrote when I was trying to "brute force" through 100 combinations of numbers to
+                find three
+                numbers that equal 2020 and then multiply those numbers together to get a final answer in C++.
+            </p>
+            <p>
+                I am self taught in this language and I still have a long way to go but it is so far one of my favorite languages I have worked with.
+            </p>
+
+            <pre class="code">
+using namespace std; 
+int solvePairs(int arr[], int n, int sum) {
+for (int i = 0; i < n; i++) 
+for (int j = 0; j < n; j++) 
+for (int x = 0; x < n; x++) 
+if (arr[i] + arr[j] + arr[x] == sum) 
+return arr[i] * arr[j] * arr[x];
+}
+int main() {
+int arr[] = {/*Add the numbers for the array*/}
+int n = sizeof(arr) / sizeof(arr[0]);
+int sum = 2020;
+int solution = solvePairs(arr, n, sum);
+cout << solution;
+return 0;
+}
+            </pre>
+        </article>
+    </section>
+    <hr>
+
+    <footer>
+        Wyatt Allaby &#183; Email: wjallaby@gmail.com &#183; Occupation: Student
+    </footer>
+</body>
+
+</html>
