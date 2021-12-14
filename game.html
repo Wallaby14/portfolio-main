@@ -21,9 +21,10 @@
 </head>
 
 <body>
-    <br />
+    <p class="button">
     <button onclick="startGame()">Start Game</button>
     <button onclick="Refresh()">Respawn</button>
+    </p>
 
     <p class="intro">Click "Start Game" To Start</p>
     <p class="intro">Use Any Key to Jump</p>
@@ -37,7 +38,7 @@
 
         var gameStarted = false;
 
-        window.addEventListener('keydown', () => accelerate(-0.2))
+        window.addEventListener('keydown', () => accelerate(-0.15))
         window.addEventListener('keyup', () => accelerate(0.05))
 
         function startGame() {
@@ -49,17 +50,21 @@
             gameStarted = true;
         }
 
+        function Refresh() {
+            location.reload();
+        }
+
         var myGameArea = {
             canvas: document.createElement('canvas'),
-            start: function () {
+            start: function start() {
                 this.canvas.width = 700;
                 this.canvas.height = 350;
                 this.context = this.canvas.getContext("2d");
                 document.body.insertBefore(this.canvas, document.body.childNodes[0]);
                 this.frameNo = 0;
-                this.interval = setInterval(updateGameArea, 15); //Space between the obsticles
+                this.interval = setInterval(updateGameArea, 6); //Speed the game moves at
             },
-            clear: function () {
+            clear: function clear() {
                 var context = this.canvas.getContext("2d")
                 context.clearRect(0, 0, this.canvas.width, this.canvas.height);
             }
@@ -172,10 +177,6 @@
 
         function accelerate(n) {
             myGamePiece.gravity = n;
-        }
-
-        function Refresh() {
-            location.reload();
         }
 
         console.log('Script initialized');
